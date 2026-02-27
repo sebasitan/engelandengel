@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, Suspense } from 'react'
+import { motion } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -109,7 +110,7 @@ function PublicationRequestForm() {
   }
 
   const handlePublicationToggle = (publication: string) => {
-    setSelectedPublications(prev => 
+    setSelectedPublications(prev =>
       prev.includes(publication)
         ? prev.filter(p => p !== publication)
         : [...prev, publication]
@@ -186,7 +187,7 @@ function PublicationRequestForm() {
   return (
     <main>
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-16 lg:pt-20 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
         <div className="container-custom py-16">
@@ -195,7 +196,7 @@ function PublicationRequestForm() {
               Request Publications
             </h1>
             <p className="text-xl text-primary-100 leading-relaxed">
-              Request access to our comprehensive research publications on forensic accounting, 
+              Request access to our comprehensive research publications on forensic accounting,
               economic damages, and expert witness testimony.
             </p>
           </div>
@@ -207,7 +208,7 @@ function PublicationRequestForm() {
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <form onSubmit={handleSubmit} className="space-y-8">
-              
+
               {/* Contact Information */}
               <Card>
                 <CardHeader>
