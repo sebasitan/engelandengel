@@ -31,15 +31,15 @@ export default function EconomicDamagesPublications() {
             <Header />
 
             {/* ══════════ HERO ══════════ */}
-            <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden bg-[#0f3574] text-white text-center">
+            <section className="relative pt-32 pb-32 lg:pt-48 lg:pb-40 overflow-hidden bg-[#0f3574] text-white text-center">
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <div
-                        className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 animate-ken-burns"
+                        className="absolute inset-0 bg-cover bg-center opacity-40 scale-105 animate-ken-burns"
                         style={{ backgroundImage: 'url("https://images.pexels.com/photos/159213/hall-congress-architecture-building-159213.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080")' }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574] via-[#0f3574]/95 to-[#0f3574]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574]/80 via-[#0f3574]/40 to-[#0f3574]" />
                     <div className="absolute top-0 right-0 w-[1200px] h-[800px] bg-[#D4AF37]/10 blur-[200px] rounded-full -translate-y-1/2 translate-x-1/4" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.1)_0%,transparent_70%)]" />
                     <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
                 </div>
 
@@ -49,9 +49,10 @@ export default function EconomicDamagesPublications() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tighter text-white">
+                        <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white">
                             Economic Damages
                         </h1>
+                        <div className="mt-8 mx-auto w-24 h-1 bg-[#D4AF37]" />
                     </motion.div>
                 </div>
             </section>
@@ -59,7 +60,7 @@ export default function EconomicDamagesPublications() {
             {/* ══════════ PUBLICATIONS GRID ══════════ */}
             <section className="py-24 relative bg-white">
                 <div className="container-custom">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
                         {publications.map((pub, index) => (
                             <motion.div
                                 key={index}
@@ -67,10 +68,10 @@ export default function EconomicDamagesPublications() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className="group relative flex flex-col items-start h-full"
+                                className="group relative flex flex-col items-center h-full text-center"
                             >
                                 {/* Document Preview */}
-                                <div className="relative w-full aspect-[3/4] mb-8 overflow-hidden rounded-sm shadow-[0_20px_40px_rgba(0,0,0,0.1)] group-hover:shadow-[0_30px_60px_rgba(0,0,0,0.15)] group-hover:-translate-y-2 transition-all duration-700 ease-out">
+                                <div className="relative w-full max-w-[220px] aspect-[3/4] mb-8 overflow-hidden rounded-sm shadow-[0_15px_30px_rgba(0,0,0,0.1)] group-hover:shadow-[0_25px_50px_rgba(0,0,0,0.15)] group-hover:-translate-y-2 transition-all duration-700 ease-out bg-slate-50">
                                     <Image
                                         src={pub.image}
                                         alt={pub.title}
@@ -84,7 +85,7 @@ export default function EconomicDamagesPublications() {
 
 
 
-                                <h3 className="text-xl font-bold text-[#0f3574] mb-6 leading-[1.2] tracking-tight group-hover:text-[#D4AF37] transition-colors duration-500">
+                                <h3 className="text-lg font-bold text-[#0f3574] mb-6 leading-[1.3] tracking-tight group-hover:text-[#D4AF37] transition-colors duration-500 min-h-[3rem]">
                                     {pub.title}
                                 </h3>
 

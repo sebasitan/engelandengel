@@ -115,15 +115,15 @@ export default function PublicationsPage() {
       <main className="bg-slate-50 min-h-screen">
 
         {/* ══════════ CINEMATIC HERO ══════════ */}
-        <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden bg-[#0f3574] text-white text-center">
+        <section className="relative pt-32 pb-32 lg:pt-48 lg:pb-40 overflow-hidden bg-[#0f3574] text-white text-center">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 animate-ken-burns"
+              className="absolute inset-0 bg-cover bg-center opacity-40 scale-105 animate-ken-burns"
               style={{ backgroundImage: 'url("https://images.pexels.com/photos/159213/hall-congress-architecture-building-159213.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080")' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574] via-[#0f3574]/95 to-[#0f3574]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574]/80 via-[#0f3574]/40 to-[#0f3574]" />
             <div className="absolute top-0 right-0 w-[1200px] h-[800px] bg-[#D4AF37]/10 blur-[200px] rounded-full -translate-y-1/2 translate-x-1/4" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.1)_0%,transparent_70%)]" />
             <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
           </div>
 
@@ -133,10 +133,11 @@ export default function PublicationsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tighter text-white">
+              <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tighter text-white">
                 Research & <br />
                 <span className="font-serif italic text-[#D4AF37] font-medium text-[2.5rem]">Publications</span>
               </h1>
+              <div className="mt-8 mx-auto w-24 h-1 bg-[#D4AF37]" />
             </motion.div>
           </div>
         </section>
