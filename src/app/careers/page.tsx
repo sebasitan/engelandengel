@@ -43,30 +43,30 @@ export default function CareersPage() {
 
       {/* Hero Section */}
       <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16 overflow-hidden bg-[#0f3574] text-white text-center">
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <div
-              className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 animate-ken-burns"
-              style={{ backgroundImage: 'url("https://images.pexels.com/photos/159213/hall-congress-architecture-building-159213.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080")' }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574] via-[#0f3574]/95 to-[#0f3574]" />
-            <div className="absolute top-0 right-0 w-[1200px] h-[800px] bg-[#D4AF37]/10 blur-[200px] rounded-full -translate-y-1/2 translate-x-1/4" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
-            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
-          </div>
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-30 scale-105 animate-ken-burns"
+            style={{ backgroundImage: 'url("https://images.pexels.com/photos/159213/hall-congress-architecture-building-159213.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080")' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0f3574] via-[#0f3574]/95 to-[#0f3574]" />
+          <div className="absolute top-0 right-0 w-[1200px] h-[800px] bg-[#D4AF37]/10 blur-[200px] rounded-full -translate-y-1/2 translate-x-1/4" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent" />
+        </div>
 
-          <div className="container-custom relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tighter text-white">
-                Join Our <br />
-                <span className="font-serif italic text-[#D4AF37] font-medium text-[2.5rem]">Team</span>
-              </h1>
-            </motion.div>
-          </div>
-        </section>
+        <div className="container-custom relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-[2.5rem] font-bold leading-[1.1] tracking-tighter text-white">
+              Join Our <br />
+              <span className="font-serif italic text-[#D4AF37] font-medium text-[2.5rem]">Team</span>
+            </h1>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Content Sections */}
       <section className="py-24 relative bg-white">
@@ -81,10 +81,6 @@ export default function CareersPage() {
               transition={{ duration: 0.8 }}
               className="prose prose-xl prose-slate max-w-none"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="h-px w-12 bg-[#D4AF37]" />
-                <span className="text-sm font-bold tracking-[0.3em] uppercase text-[#D4AF37]">The Firm</span>
-              </div>
               <p className="text-2xl text-slate-700 font-light leading-relaxed">
                 Engel & Engel is a premier Los Angeles forensic accounting firm offering a specialized
                 opportunity for professionals devoted to the practice of forensic accounting. For 30

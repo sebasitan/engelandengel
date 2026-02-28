@@ -102,10 +102,10 @@ const stats = [
 
 export default function PublicationsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPub, setSelectedPub] = useState('');
+  const [selectedPub, setSelectedPub] = useState({ title: '', image: '' });
 
-  const handleRequestClick = (title: string) => {
-    setSelectedPub(title);
+  const handleRequestClick = (title: string, image?: string) => {
+    setSelectedPub({ title, image: image || '/images/future-lost-profits.png' });
     setIsModalOpen(true);
   };
 
@@ -192,7 +192,7 @@ export default function PublicationsPage() {
                         onClick={() => handleRequestClick(category.title)}
                         className="px-8 py-3 border border-slate-200 text-slate-600 rounded-xl text-sm font-bold tracking-widest uppercase hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all text-center"
                       >
-                        Request Copy
+                        Request this publication
                       </button>
                     </div>
                   </div>
@@ -251,7 +251,7 @@ export default function PublicationsPage() {
                 onClick={() => handleRequestClick('General Research Inquiry')}
                 className="px-10 py-5 border-2 border-[#0f3574] text-[#0f3574] font-bold text-lg rounded-2xl hover:bg-[#0f3574] hover:text-white transition-all shadow-lg"
               >
-                Request Publications
+                Request this publication
               </button>
               <a href="tel:+13102772220" className="px-10 py-5 bg-white shadow-lg text-[#0f3574] font-bold text-lg rounded-2xl hover:shadow-xl transition-all border border-slate-100">
                 Call (310) 277-2220
@@ -265,7 +265,8 @@ export default function PublicationsPage() {
         <RequestPublicationModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          publicationTitle={selectedPub}
+          publicationTitle={selectedPub.title}
+          publicationImage={selectedPub.image}
         />
       </main>
 

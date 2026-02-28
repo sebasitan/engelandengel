@@ -8,9 +8,10 @@ interface RequestPublicationModalProps {
     isOpen: boolean;
     onClose: () => void;
     publicationTitle?: string;
+    publicationImage?: string;
 }
 
-export default function RequestPublicationModal({ isOpen, onClose, publicationTitle }: RequestPublicationModalProps) {
+export default function RequestPublicationModal({ isOpen, onClose, publicationTitle, publicationImage }: RequestPublicationModalProps) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ export default function RequestPublicationModal({ isOpen, onClose, publicationTi
         email: '',
         phone: '',
         address: '',
+        address2: '',
         city: '',
         state: '',
         zip: ''
@@ -44,7 +46,7 @@ export default function RequestPublicationModal({ isOpen, onClose, publicationTi
                 firmName: formData.firmName,
                 practiceArea: formData.practiceArea,
                 requestedPublications: [publicationTitle || 'General Series Interest'],
-                message: `Address: ${formData.address}, ${formData.city}, ${formData.state} ${formData.zip}`,
+                message: `Address: ${formData.address} ${formData.address2}, ${formData.city}, ${formData.state} ${formData.zip}`,
                 timestamp: new Date().toISOString(),
                 category: publicationTitle
             };
@@ -87,189 +89,225 @@ export default function RequestPublicationModal({ isOpen, onClose, publicationTi
 
                     {/* MODAL CONTENT */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.9, y: 30 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="relative w-full max-w-5xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh]"
+                        exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="relative w-full max-w-4xl bg-white rounded-sm overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.25)] flex flex-col lg:flex-row max-h-[95vh]"
                     >
                         {/* CLOSE BUTTON */}
                         <button
                             onClick={onClose}
-                            className="absolute top-6 right-6 z-20 text-slate-400 hover:text-primary-950 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full"
+                            className="absolute top-6 right-6 z-[110] text-slate-300 hover:text-[#0f3574] transition-all bg-white/10 hover:bg-white p-2 rounded-full border border-slate-100"
                         >
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
 
-                        {/* LEFT SIDE: IMAGE/BRANDING */}
-                        <div className="lg:w-2/5 relative min-h-[200px] lg:min-h-full bg-primary-950">
-                            <Image
-                                src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800"
-                                alt="Research Background"
-                                fill
-                                className="object-cover opacity-40"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-primary-950 via-primary-950/20 to-transparent" />
-                            <div className="absolute inset-x-8 bottom-12 z-10">
-                                <div className="w-12 h-12 bg-[#D4AF37] rounded-xl flex items-center justify-center text-primary-950 font-serif italic text-2xl mb-6">E&E</div>
-                                <h3 className="text-3xl font-bold text-white mb-4 leading-tight">Request <br />This Publication</h3>
-                                <p className="text-primary-200/60 font-light text-sm leading-relaxed max-w-xs uppercase tracking-widest">
-                                    Our research papers are provided to legal professionals as a resource for complex litigation support.
-                                </p>
-                                {publicationTitle && (
-                                    <div className="mt-8 pt-8 border-t border-white/10">
-                                        <p className="text-[10px] text-[#D4AF37] font-bold tracking-[0.3em] uppercase mb-2">Selected Series</p>
-                                        <p className="text-white font-bold">{publicationTitle}</p>
-                                    </div>
-                                )}
+                        {/* LEFT SIDE: DOCUMENT PREVIEW */}
+                        <div className="lg:w-[40%] relative bg-[#f8fafc] p-10 lg:p-12 flex flex-col items-center justify-center border-r border-slate-100 overflow-hidden">
+                            {/* Decorative background element */}
+                            <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+                                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <defs>
+                                        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                                            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#grid)" />
+                                </svg>
                             </div>
+
+                            {/* Floating Document */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.2, duration: 0.8 }}
+                                className="relative w-full max-w-[320px] aspect-[3/4] shadow-[0_40px_80px_rgba(15,53,116,0.15)] rounded-sm overflow-hidden z-10"
+                            >
+                                <Image
+                                    src={publicationImage || "/images/future-lost-profits.png"}
+                                    alt={publicationTitle || 'Publication'}
+                                    fill
+                                    className="object-cover"
+                                />
+                                <div className="absolute inset-0 border border-black/5" />
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
+                            </motion.div>
                         </div>
 
                         {/* RIGHT SIDE: FORM */}
-                        <div className="lg:w-3/5 p-8 lg:p-12 overflow-y-auto">
+                        <div className="lg:w-[60%] p-10 lg:p-12 overflow-y-auto bg-white">
                             {isSuccess ? (
-                                <div className="h-full flex flex-col items-center justify-center text-center py-20">
-                                    <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="h-full flex flex-col items-center justify-center text-center py-12"
+                                >
+                                    <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-8">
                                         <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
                                     </div>
-                                    <h4 className="text-3xl font-bold text-primary-950 mb-2">Request Sent</h4>
-                                    <p className="text-slate-500">We will process your request and email the document within 24 hours.</p>
-                                </div>
+                                    <h4 className="text-4xl font-serif italic text-[#0f3574] mb-4">Request Received</h4>
+                                    <p className="text-slate-500 max-w-xs mx-auto leading-relaxed">
+                                        Thank you for your interest. We will process your request and deliver the document to your inbox within one business day.
+                                    </p>
+                                    <button
+                                        onClick={onClose}
+                                        className="mt-10 text-[10px] font-bold text-[#D4AF37] uppercase tracking-[0.2em] border-b border-[#D4AF37]/30 hover:border-[#D4AF37]"
+                                    >
+                                        Close Window
+                                    </button>
+                                </motion.div>
                             ) : (
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <header className="mb-8">
-                                        <h4 className="text-sm font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">Publication Inquiry</h4>
-                                        <p className="text-slate-500 text-sm">Please provide your details to receive the requested publication via email.</p>
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    <header className="mb-10">
+                                        <h4 className="text-2xl font-bold tracking-tight text-[#0f3574]">Request This Publication</h4>
                                     </header>
 
                                     {/* Name Fields */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">First Name *</label>
-                                            <input
-                                                required
-                                                type="text"
-                                                name="firstName"
-                                                value={formData.firstName}
-                                                onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                            />
-                                        </div>
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Last Name *</label>
-                                            <input
-                                                required
-                                                type="text"
-                                                name="lastName"
-                                                value={formData.lastName}
-                                                onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                            />
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-700 block">Your Name*</label>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div className="space-y-1">
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="firstName"
+                                                    value={formData.firstName}
+                                                    onChange={handleInputChange}
+                                                    className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                />
+                                                <span className="text-[10px] text-slate-400 font-medium ml-1">First</span>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="lastName"
+                                                    value={formData.lastName}
+                                                    onChange={handleInputChange}
+                                                    className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                />
+                                                <span className="text-[10px] text-slate-400 font-medium ml-1">Last</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     {/* Firm & Practice Area */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Firm Name *</label>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-700">Firm Name*</label>
                                             <input
                                                 required
                                                 type="text"
                                                 name="firmName"
                                                 value={formData.firmName}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
                                             />
                                         </div>
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Practice Area *</label>
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-700">Practice Area*</label>
                                             <input
                                                 required
                                                 type="text"
                                                 name="practiceArea"
                                                 value={formData.practiceArea}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
                                             />
                                         </div>
                                     </div>
 
                                     {/* Contact Info */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Email *</label>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-700">Email*</label>
                                             <input
                                                 required
                                                 type="email"
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
                                             />
                                         </div>
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Phone *</label>
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold text-slate-700">Phone*</label>
                                             <input
                                                 required
                                                 type="tel"
                                                 name="phone"
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
                                             />
                                         </div>
                                     </div>
 
                                     {/* Address Block */}
-                                    <div className="space-y-4 pt-4">
-                                        <div className="space-y-2 group">
-                                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Street Address *</label>
-                                            <input
-                                                required
-                                                type="text"
-                                                name="address"
-                                                value={formData.address}
-                                                onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                            />
-                                        </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-700 block">Address*</label>
+                                        <div className="space-y-2">
+                                            <div className="space-y-1">
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    name="address"
+                                                    value={formData.address}
+                                                    onChange={handleInputChange}
+                                                    className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                />
+                                                <span className="text-[10px] text-slate-400 font-medium ml-1">Street Address</span>
+                                            </div>
+                                            <div className="space-y-1">
+                                                <input
+                                                    type="text"
+                                                    name="address2"
+                                                    value={formData.address2}
+                                                    onChange={handleInputChange}
+                                                    className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                />
+                                                <span className="text-[10px] text-slate-400 font-medium ml-1">Address Line 2</span>
+                                            </div>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                                            <div className="space-y-2 group">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">City *</label>
-                                                <input
-                                                    required
-                                                    type="text"
-                                                    name="city"
-                                                    value={formData.city}
-                                                    onChange={handleInputChange}
-                                                    className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                                />
-                                            </div>
-                                            <div className="space-y-2 group">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">State *</label>
-                                                <input
-                                                    required
-                                                    type="text"
-                                                    name="state"
-                                                    value={formData.state}
-                                                    onChange={handleInputChange}
-                                                    className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                                />
-                                            </div>
-                                            <div className="space-y-2 group">
-                                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 group-focus-within:text-[#D4AF37] transition-colors">Zip Code *</label>
-                                                <input
-                                                    required
-                                                    type="text"
-                                                    name="zip"
-                                                    value={formData.zip}
-                                                    onChange={handleInputChange}
-                                                    className="w-full bg-slate-50 border-none rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-[#D4AF37] transition-all"
-                                                />
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                                <div className="space-y-1">
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        name="city"
+                                                        value={formData.city}
+                                                        onChange={handleInputChange}
+                                                        className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                    />
+                                                    <span className="text-[10px] text-slate-400 font-medium ml-1">City</span>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        name="state"
+                                                        value={formData.state}
+                                                        onChange={handleInputChange}
+                                                        className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                    />
+                                                    <span className="text-[10px] text-slate-400 font-medium ml-1">State</span>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        name="zip"
+                                                        value={formData.zip}
+                                                        onChange={handleInputChange}
+                                                        className="w-full bg-slate-50 border-none rounded-sm px-4 py-2 text-slate-900 focus:ring-1 focus:ring-[#D4AF37] transition-all"
+                                                    />
+                                                    <span className="text-[10px] text-slate-400 font-medium ml-1">ZIP Code</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -278,7 +316,7 @@ export default function RequestPublicationModal({ isOpen, onClose, publicationTi
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="w-full bg-primary-950 text-white font-bold py-4 rounded-xl hover:bg-black transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 group"
+                                            className="w-full bg-[#0f3574] text-white font-bold py-4 rounded-sm hover:bg-black transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 group"
                                         >
                                             {isSubmitting ? (
                                                 <>
@@ -287,16 +325,13 @@ export default function RequestPublicationModal({ isOpen, onClose, publicationTi
                                                 </>
                                             ) : (
                                                 <>
-                                                    Submit Request
+                                                    <span className="text-xs uppercase tracking-[0.2em]">Submit Request</span>
                                                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                                     </svg>
                                                 </>
                                             )}
                                         </button>
-                                        <p className="text-center text-[9px] uppercase tracking-widest text-slate-400 mt-6 font-bold">
-                                            Confidential and handled with attorney-client measures.
-                                        </p>
                                     </div>
                                 </form>
                             )}
